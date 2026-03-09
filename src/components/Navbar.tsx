@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const links = ["Home", "About", "Skills", "Projects", "Achievements", "Contact"];
 
@@ -32,6 +33,12 @@ const Navbar = () => {
               {l}
             </button>
           ))}
+        </div>
+
+        <div className="hidden md:block">
+          <Button className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-6" onClick={() => handleClick("Contact")}>
+            Contact Me
+          </Button>
         </div>
 
         <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
