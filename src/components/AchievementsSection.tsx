@@ -1,42 +1,147 @@
-import { Trophy, Award } from "lucide-react";
+import { Trophy, Award, Medal, Calendar } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
-const AchievementsSection = () => (
-  <section id="achievements" className="py-24 relative">
-    <div className="container mx-auto px-6">
-      <h2 className="text-3xl font-bold mb-2 text-foreground">Achievements & <span className="neon-text">Certifications</span></h2>
-      <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
+type Category = "all" | "hackathon" | "certification" | "award";
 
-      <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
-        {/* Achievement */}
-        <div className="glass-card neon-glow-hover p-6 flex gap-4">
-          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-            <Trophy className="w-6 h-6 text-primary" />
+const achievements = [
+  {
+    type: "hackathon" as const,
+    icon: Trophy,
+    title: "Best Innovative Idea Award",
+    org: "HACKZILLA, KPRIET",
+    date: "Sep 2025",
+    desc: "Recognized for presenting the most innovative solution at the RACE/CILLA Hackathon.",
+  },
+  {
+    type: "hackathon" as const,
+    icon: Trophy,
+    title: "Finalist - BITNBUILD'25",
+    org: "Google Developers Group(GDG), Fr. Conceicao Rodrigues College of Engineering(FRCRCE), Bandra",
+    date: "Sep 2025",
+    desc: "24 hours Online hackathon, Reached the finals in Tamil Nadu Exclusive State Hackathon.",
+  },
+  {
+    type: "award" as const,
+    icon: Medal,
+    title: "Best Innovative Idea Award",
+    org: "HACKZILLA, KPRIET",
+    date: "Sep 2025",
+    desc: "Recognized for presenting the most innovative solution at the RACE/CILLA Hackathon.",
+  },
+  {
+    type: "certification" as const,
+    icon: Award,
+    title: "Cybersecurity Professional Certification",
+    org: "Google, Coursera",
+    date: "Jan 2024",
+    desc: "Completed comprehensive cybersecurity training program.",
+  },
+  {
+    type: "certification" as const,
+    icon: Award,
+    title: "Cybersecurity",
+    org: "Infosys Springboard",
+    date: "2024",
+    desc: "Cybersecurity fundamentals and best practices.",
+  },
+  {
+    type: "certification" as const,
+    icon: Award,
+    title: "Introduction to Python",
+    org: "Infosys Springboard",
+    date: "2024",
+    desc: "Python programming fundamentals.",
+  },
+];
+
+const filters: { label: string; value: Category }[] = [
+  { label: "All", value: "all" },
+  { label: "Hackathons", value: "hackathon" },
+  { label: "Certifications", value: "certification" },
+  { label: "Awards", value: "award" },
+];
+
+const badgeColor: Record<string, string> = {
+  hackathon: "bg-primary/20 text-primary",
+  certification: "bg-emerald-500/20 text-emerald-400",
+  award: "bg-amber-500/20 text-amber-400",
+};
+
+const AchievementsSection = () => {
+  const [active, setActive] = useState<Category>("all");
+  const filtered = active === "all" ? achievements : achievements.filter((a) => a.type === active);
+
+  return (
+    <section id="achievements" className="py-24 relative">
+      <div className="container mx-auto px-6">
+        <AnimatedSection>
+          <h2 className="text-3xl font-bold mb-2 text-foreground">
+            Achievements & <span className="text-primary">Certifications</span>
+          </h2>
+          <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
+        </AnimatedSection>
+
+        {/* Filters */}
+        <AnimatedSection delay={0.1}>
+          <div className="flex flex-wrap gap-3 mb-10 justify-center">
+            {filters.map((f) => (
+              <motion.button
+                key={f.value}
+                onClick={() => setActive(f.value)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                  active === f.value
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card/60 text-muted-foreground border-border/40 hover:border-primary/40 hover:text-foreground"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {f.label}
+              </motion.button>
+            ))}
           </div>
-          <div>
-            <h3 className="font-bold text-foreground mb-1">HackZILLA Hackathon</h3>
-            <p className="text-sm text-primary font-mono mb-1">Best Innovative Idea Award</p>
-            <p className="text-sm text-muted-foreground">Recognized for innovative approach to cybersecurity challenges.</p>
-          </div>
+        </AnimatedSection>
+
+        {/* Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((item, i) => (
+              <motion.div
+                key={item.title + item.org}
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{ duration: 0.35, delay: i * 0.05 }}
+                className="glass-card p-6 flex flex-col gap-3 group hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                    <item.icon className="w-6 h-6 text-amber-400" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full capitalize ${badgeColor[item.type]}`}>
+                        {item.type}
+                      </span>
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" /> {item.date}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-foreground">{item.title}</h3>
+                  </div>
+                </div>
+                <p className="text-sm text-primary font-medium">{item.org}</p>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
-
-        {/* Certifications */}
-        {[
-          { title: "Cybersecurity", issuer: "Infosys Springboard" },
-          { title: "Introduction to Python", issuer: "Infosys Springboard" },
-        ].map((cert, i) => (
-          <div key={i} className="glass-card neon-glow-hover p-6 flex gap-4">
-            <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-              <Award className="w-6 h-6 text-primary" />
-            </div>
-            <div>
-              <h3 className="font-bold text-foreground mb-1">{cert.title}</h3>
-              <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-            </div>
-          </div>
-        ))}
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default AchievementsSection;
