@@ -1,5 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const projects = [
   {
@@ -22,26 +24,34 @@ const projects = [
 const ProjectsSection = () => (
   <section id="projects" className="py-24 relative">
     <div className="container mx-auto px-6">
-      <h2 className="text-3xl font-bold mb-2 text-foreground">Featured <span className="neon-text">Projects</span></h2>
-      <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
+      <AnimatedSection>
+        <h2 className="text-3xl font-bold mb-2 text-foreground">Featured <span className="text-primary">Projects</span></h2>
+        <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
+      </AnimatedSection>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((p, i) => (
-          <div key={i} className="glass-card neon-glow-hover p-6 flex flex-col gap-4 hover:-translate-y-2 transition-all duration-300">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <span className="font-mono text-primary font-bold text-sm">0{i + 1}</span>
-            </div>
-            <h3 className="text-xl font-bold text-foreground">{p.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.desc}</p>
-            <div className="flex flex-wrap gap-2">
-              {p.tech.map((t) => (
-                <span key={t} className="text-xs font-mono px-2 py-1 rounded bg-primary/10 text-primary">{t}</span>
-              ))}
-            </div>
-            <Button variant="ghost" size="sm" className="w-fit text-primary hover:bg-primary/10 mt-auto">
-              <ExternalLink className="w-4 h-4 mr-1" /> GitHub
-            </Button>
-          </div>
+          <AnimatedSection key={i} delay={i * 0.1}>
+            <motion.div
+              className="glass-card p-6 flex flex-col gap-4 h-full group hover:border-primary/30 transition-all duration-300"
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                <span className="font-mono text-primary font-bold text-sm">0{i + 1}</span>
+              </div>
+              <h3 className="text-xl font-bold text-foreground">{p.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.desc}</p>
+              <div className="flex flex-wrap gap-2">
+                {p.tech.map((t) => (
+                  <span key={t} className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">{t}</span>
+                ))}
+              </div>
+              <Button variant="ghost" size="sm" className="w-fit text-primary hover:bg-primary/10 mt-auto">
+                <ExternalLink className="w-4 h-4 mr-1" /> GitHub
+              </Button>
+            </motion.div>
+          </AnimatedSection>
         ))}
       </div>
     </div>

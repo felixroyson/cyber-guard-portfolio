@@ -1,6 +1,7 @@
 import { Github, Linkedin, Mail, Globe, FileText, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const orbitIcons = [
   { icon: Github, label: "GitHub", href: "https://github.com" },
@@ -24,7 +25,12 @@ const HeroSection = () => {
       <div className="container mx-auto px-6 pt-24 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left */}
-          <div className="space-y-6">
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-2 text-xs font-mono text-primary">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
               Available for opportunities
@@ -32,34 +38,48 @@ const HeroSection = () => {
             <p className="text-muted-foreground text-sm">Felix Roysom A+</p>
             <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground">
               Cybersecurity &{" "}
-              <span className="neon-text">Secure Systems</span>{" "}
+              <span className="text-primary">Secure Systems</span>{" "}
               <span className="text-foreground">Engineer.</span>
             </h1>
             <p className="text-muted-foreground leading-relaxed max-w-lg">
               Computer Science Engineering student focused on cybersecurity, network security, and secure digital infrastructure. Interested in cyber defense and security monitoring systems.
             </p>
             <div className="flex gap-4 pt-2">
-              <Button size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
-                View Projects <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-full border-primary/30 text-primary hover:bg-primary/10 px-8">
-                Download Resume
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Button size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
+                  View Projects <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+                <Button variant="outline" size="lg" className="rounded-full border-primary/30 text-primary hover:bg-primary/10 px-8">
+                  Download Resume
+                </Button>
+              </motion.div>
             </div>
 
             {/* Stats */}
             <div className="flex gap-8 pt-6">
               {stats.map((s, i) => (
-                <div key={i}>
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 + i * 0.15 }}
+                >
                   <p className="text-2xl md:text-3xl font-bold text-foreground">{s.value}</p>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider">{s.label}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Right – Orbit */}
-          <div className="flex justify-center">
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
             <div className="relative w-72 h-72 md:w-96 md:h-96">
               {/* Glow behind avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
@@ -73,7 +93,7 @@ const HeroSection = () => {
               {/* Center avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-secondary flex items-center justify-center border-2 border-primary/30 neon-border">
-                  <span className="text-3xl md:text-4xl font-bold font-mono neon-text">FR</span>
+                  <span className="text-3xl md:text-4xl font-bold font-mono text-primary">FR</span>
                 </div>
               </div>
 
@@ -99,7 +119,7 @@ const HeroSection = () => {
                       onMouseLeave={() => setHoveredIdx(null)}
                     >
                       <div className="animate-orbit-reverse">
-                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${hoveredIdx === i ? "neon-border scale-110 bg-primary/20 border-primary/40" : ""}`}>
+                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${hoveredIdx === i ? "scale-125 bg-primary/20 border-primary/50 shadow-[0_0_20px_hsl(258_100%_62%/0.4)]" : "hover:border-primary/30"}`}>
                           <Icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                         </div>
                         {hoveredIdx === i && (
@@ -127,7 +147,7 @@ const HeroSection = () => {
                 })}
               </svg>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
