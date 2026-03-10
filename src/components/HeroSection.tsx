@@ -1,14 +1,13 @@
-import { Github, Linkedin, Mail, Globe, FileText, ChevronRight } from "lucide-react";
+import { Github, Linkedin, Mail, ChevronRight, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import profileImg from "@/assets/profile.png";
 
-const orbitIcons = [
-  { icon: Github, label: "GitHub", href: "https://github.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Mail, label: "Email", href: "mailto:felix@example.com" },
-  { icon: Globe, label: "Portfolio", href: "#" },
-  { icon: FileText, label: "Resume", href: "#" },
+const socialIcons = [
+  { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/", position: { top: "8%", right: "5%" } },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/", position: { bottom: "15%", left: "2%" } },
+  { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm", position: { top: "20%", left: "8%" } },
 ];
 
 const stats = [
@@ -73,78 +72,79 @@ const HeroSection = () => {
             </div>
           </motion.div>
 
-          {/* Right – Orbit */}
+          {/* Right – Profile with floating social icons */}
           <motion.div
             className="flex justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-72 h-72 md:w-96 md:h-96">
+            <div className="relative w-80 h-80 md:w-[420px] md:h-[420px]">
               {/* Glow behind avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-56 h-56 md:w-72 md:h-72 rounded-full bg-primary/10 blur-3xl" />
               </div>
 
               {/* Orbit rings */}
-              <div className="absolute inset-4 rounded-full border border-primary/10" />
-              <div className="absolute inset-0 rounded-full border border-primary/5" />
+              <div className="absolute inset-8 rounded-full border border-primary/10" />
+              <div className="absolute inset-2 rounded-full border border-primary/5" />
 
-              {/* Center avatar */}
+              {/* Center avatar with profile photo */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-secondary flex items-center justify-center border-2 border-primary/30 neon-border">
-                  <span className="text-3xl md:text-4xl font-bold font-mono text-primary">FR</span>
+                <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-primary/40 shadow-[0_0_30px_hsl(195_100%_50%/0.2)]">
+                  <img src={profileImg} alt="Felix Roysom A" className="w-full h-full object-cover" />
                 </div>
               </div>
 
-              {/* Orbiting icons */}
-              <div className="absolute inset-0 animate-orbit">
-                {orbitIcons.map((item, i) => {
-                  const angle = (i * 360) / orbitIcons.length;
-                  const rad = (angle * Math.PI) / 180;
-                  const radius = 46;
-                  const x = 50 + radius * Math.cos(rad);
-                  const y = 50 + radius * Math.sin(rad);
-                  const Icon = item.icon;
+              {/* Client Feedback dialogue box */}
+              <motion.div
+                className="absolute bottom-6 right-0 md:bottom-10 md:-right-4 glass-card p-3 md:p-4 max-w-[220px] md:max-w-[260px] shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.6 }}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <MessageCircle className="w-4 h-4 text-primary" />
+                  <span className="text-xs font-semibold text-primary">Client Feedback</span>
+                </div>
+                <p className="text-xs text-muted-foreground italic leading-relaxed">
+                  "An extremely professional, talented, creative, proactive, patient and honest."
+                </p>
+              </motion.div>
 
-                  return (
-                    <a
-                      key={i}
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute group"
-                      style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%, -50%)" }}
-                      onMouseEnter={() => setHoveredIdx(i)}
-                      onMouseLeave={() => setHoveredIdx(null)}
-                    >
-                      <div className="animate-orbit-reverse">
-                        <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${hoveredIdx === i ? "scale-125 bg-primary/20 border-primary/50 shadow-[0_0_20px_hsl(258_100%_62%/0.4)]" : "hover:border-primary/30"}`}>
-                          <Icon className="w-4 h-4 md:w-5 md:h-5 text-primary" />
-                        </div>
-                        {hoveredIdx === i && (
-                          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card border border-border/40 rounded-lg px-2 py-1">
-                            {item.label}
-                          </div>
-                        )}
+              {/* Floating social icons */}
+              {socialIcons.map((item, i) => {
+                const Icon = item.icon;
+                return (
+                  <motion.a
+                    key={i}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute group"
+                    style={item.position}
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onMouseLeave={() => setHoveredIdx(null)}
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className={`w-11 h-11 md:w-14 md:h-14 rounded-full bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${hoveredIdx === i ? "scale-125 bg-primary/20 border-primary/50 shadow-[0_0_20px_hsl(195_100%_50%/0.4)]" : "hover:border-primary/30"}`}>
+                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                    </div>
+                    {hoveredIdx === i && (
+                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card border border-border/40 rounded-lg px-2 py-1">
+                        {item.label}
                       </div>
-                    </a>
-                  );
-                })}
-              </div>
+                    )}
+                  </motion.a>
+                );
+              })}
 
-              {/* Connecting lines */}
-              <svg className="absolute inset-0 w-full h-full animate-orbit" viewBox="0 0 100 100">
-                {orbitIcons.map((_, i) => {
-                  const angle = (i * 360) / orbitIcons.length;
-                  const rad = (angle * Math.PI) / 180;
-                  const radius = 46;
-                  const x = 50 + radius * Math.cos(rad);
-                  const y = 50 + radius * Math.sin(rad);
-                  return (
-                    <line key={i} x1="50" y1="50" x2={x} y2={y} stroke="hsl(258 100% 62% / 0.08)" strokeWidth="0.3" />
-                  );
-                })}
+              {/* Connecting lines SVG */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+                <line x1="50" y1="50" x2="85" y2="12" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
+                <line x1="50" y1="50" x2="12" y2="78" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
+                <line x1="50" y1="50" x2="15" y2="25" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
               </svg>
             </div>
           </motion.div>
