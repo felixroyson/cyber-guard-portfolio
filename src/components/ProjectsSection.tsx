@@ -31,23 +31,23 @@ const ProjectsSection = () => (
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((p, i) => (
-          <AnimatedSection key={i} delay={i * 0.1}>
+          <AnimatedSection key={i} delay={i * 0.12}>
             <motion.div
               className="glass-card p-6 flex flex-col gap-4 h-full group hover:border-primary/30 transition-all duration-300"
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:shadow-[0_0_15px_hsl(195_100%_50%/0.15)] transition-all duration-300">
                 <span className="font-mono text-primary font-bold text-sm">0{i + 1}</span>
               </div>
-              <h3 className="text-xl font-bold text-foreground">{p.title}</h3>
+              <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">{p.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.desc}</p>
               <div className="flex flex-wrap gap-2">
                 {p.tech.map((t) => (
-                  <span key={t} className="text-xs font-mono px-2 py-1 rounded-full bg-primary/10 text-primary">{t}</span>
+                  <span key={t} className="text-xs font-mono px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/10">{t}</span>
                 ))}
               </div>
-              <Button variant="ghost" size="sm" className="w-fit text-primary hover:bg-primary/10 mt-auto">
+              <Button variant="ghost" size="sm" className="w-fit text-primary hover:bg-primary/10 mt-auto group-hover:translate-x-1 transition-transform duration-300">
                 <ExternalLink className="w-4 h-4 mr-1" /> GitHub
               </Button>
             </motion.div>

@@ -69,6 +69,18 @@ const badgeColor: Record<string, string> = {
   award: "bg-amber-500/20 text-amber-400",
 };
 
+const iconBg: Record<string, string> = {
+  hackathon: "bg-primary/10",
+  certification: "bg-emerald-500/10",
+  award: "bg-amber-500/10",
+};
+
+const iconColor: Record<string, string> = {
+  hackathon: "text-primary",
+  certification: "text-emerald-400",
+  award: "text-amber-400",
+};
+
 const AchievementsSection = () => {
   const [active, setActive] = useState<Category>("all");
   const filtered = active === "all" ? achievements : achievements.filter((a) => a.type === active);
@@ -85,41 +97,49 @@ const AchievementsSection = () => {
 
         {/* Filters */}
         <AnimatedSection delay={0.1}>
-          <div className="flex flex-wrap gap-3 mb-10 justify-center">
+          <div className="flex flex-wrap gap-3 mb-10">
             {filters.map((f) => (
               <motion.button
                 key={f.value}
                 onClick={() => setActive(f.value)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
+                className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
                   active === f.value
-                    ? "bg-primary text-primary-foreground border-primary"
+                    ? "text-primary-foreground border-primary"
                     : "bg-card/60 text-muted-foreground border-border/40 hover:border-primary/40 hover:text-foreground"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {f.label}
+                {active === f.value && (
+                  <motion.div
+                    layoutId="activeFilter"
+                    className="absolute inset-0 rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{f.label}</span>
               </motion.button>
             ))}
           </div>
         </AnimatedSection>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl">
           <AnimatePresence mode="popLayout">
             {filtered.map((item, i) => (
               <motion.div
-                key={item.title + item.org}
+                key={item.title + item.org + item.type}
                 layout
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                transition={{ duration: 0.35, delay: i * 0.05 }}
-                className="glass-card p-6 flex flex-col gap-3 group hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
+                transition={{ duration: 0.35, delay: i * 0.06 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="glass-card p-6 flex flex-col gap-3 group hover:border-primary/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
-                    <item.icon className="w-6 h-6 text-amber-400" />
+                  <div className={`w-12 h-12 rounded-xl ${iconBg[item.type]} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className={`w-6 h-6 ${iconColor[item.type]}`} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">

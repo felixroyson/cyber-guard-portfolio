@@ -23,30 +23,31 @@ const AboutSection = () => (
         <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
       </AnimatedSection>
 
-      <div className="grid lg:grid-cols-2 gap-8 max-w-5xl">
-        {/* Left – About text + specialty cards */}
+      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 max-w-6xl">
+        {/* Left – About text + specialty cards (60-70%) */}
         <AnimatedSection delay={0.1}>
           <div className="glass-card neon-border p-8 md:p-10 h-full">
-            <p className="text-muted-foreground leading-relaxed mb-8">
+            <p className="text-muted-foreground leading-relaxed mb-8 text-[15px]">
               I'm a Computer Science Engineering student with a deep passion for cybersecurity and secure system architecture. My focus lies in understanding and building resilient digital infrastructure — from network-level defenses to application security monitoring. I'm driven by the challenge of staying ahead of threats and building systems that protect critical data and services.
             </p>
             <div className="grid sm:grid-cols-3 gap-4">
               {cards.map((item, i) => (
                 <motion.div
                   key={i}
-                  className="glass-card p-4 group hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
-                  whileHover={{ scale: 1.03 }}
+                  className="glass-card p-5 group hover:border-primary/30 transition-all duration-300"
+                  whileHover={{ y: -6, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <item.icon className="w-7 h-7 text-primary mb-2 group-hover:scale-110 transition-transform duration-300" />
+                  <item.icon className="w-7 h-7 text-primary mb-3 group-hover:scale-110 transition-transform duration-300" />
                   <h3 className="font-semibold text-foreground text-sm mb-1">{item.title}</h3>
-                  <p className="text-xs text-muted-foreground">{item.desc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </AnimatedSection>
 
-        {/* Right – Quick highlights */}
+        {/* Right – Quick highlights (30-40%) */}
         <AnimatedSection delay={0.25}>
           <div className="glass-card neon-border p-8 md:p-10 h-full flex flex-col justify-between">
             <div>
@@ -60,8 +61,9 @@ const AboutSection = () => (
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + i * 0.1 }}
+                    whileHover={{ x: 4 }}
                   >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors border border-primary/10">
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-all duration-300 border border-primary/10 group-hover:border-primary/30 group-hover:shadow-[0_0_15px_hsl(195_100%_50%/0.15)]">
                       <h.icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
