@@ -13,7 +13,7 @@ const socialIcons = [
 const stats = [
   { value: "3+", label: "Projects Completed" },
   { value: "2+", label: "Certifications" },
-  { value: "8.18", label: "CGPA (6th Sem)" },
+  { value: "10+", label: "Skills" },
 ];
 
 const HeroSection = () => {
