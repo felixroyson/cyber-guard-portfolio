@@ -11,9 +11,9 @@ const socialIcons = [
 ];
 
 const stats = [
-  { value: "10+", label: "Projects Completed" },
-  { value: "5+", label: "Certifications" },
-  { value: "3+", label: "Years Experience" },
+  { value: "3+", label: "Projects Completed" },
+  { value: "2+", label: "Certifications" },
+  { value: "8.18", label: "CGPA (6th Sem)" },
 ];
 
 const HeroSection = () => {
@@ -105,10 +105,10 @@ const HeroSection = () => {
               >
                 <div className="flex items-center gap-2 mb-1">
                   <MessageCircle className="w-4 h-4 text-primary" />
-                  <span className="text-xs font-semibold text-primary">Client Feedback</span>
+                  <span className="text-xs font-semibold text-primary">Proverbs 21:5</span>
                 </div>
                 <p className="text-xs text-muted-foreground italic leading-relaxed">
-                  "An extremely professional, talented, creative, proactive, patient and honest."
+                  "The plans of the diligent lead surely to abundance, but everyone who is hasty comes only to poverty."
                 </p>
               </motion.div>
 
