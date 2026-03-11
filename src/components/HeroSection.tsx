@@ -50,8 +50,10 @@ const HeroSection = () => {
                 </Button>
               </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="outline" size="lg" className="rounded-full border-primary/30 text-primary hover:bg-primary/10 px-8">
-                  Download Resume
+                <Button variant="outline" size="lg" className="rounded-full border-primary/30 text-primary hover:bg-primary/10 px-8" asChild>
+                  <a href="/Felix_Royson_Resume.pdf" download>
+                    Download Resume
+                  </a>
                 </Button>
               </motion.div>
             </div>
