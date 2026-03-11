@@ -23,7 +23,7 @@ const AboutSection = () => (
         <div className="w-16 h-1 bg-primary/50 rounded mb-10" />
       </AnimatedSection>
 
-      <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6 max-w-6xl">
+      <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 max-w-6xl">
         {/* Left – About text + specialty cards (60-70%) */}
         <AnimatedSection delay={0.1}>
           <div className="glass-card neon-border p-8 md:p-10 h-full">
