@@ -19,6 +19,11 @@ const projects = [
     desc: "Automation platform for file analysis and classification using intelligent security heuristics.",
     tech: ["Python", "Automation", "ML", "REST API"],
   },
+  {
+    title: "GC – Guardian Companion",
+    desc: "A smart personal safety and routine monitoring application designed to enhance user security through real-time tracking and alerts.",
+    tech: ["React", "Supabase", "Maps API"],
+  },
 ];
 
 const ProjectsSection = () => (
