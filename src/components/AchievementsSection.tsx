@@ -31,6 +31,14 @@ const achievements = [
     desc: "Recognized for presenting the most innovative solution at the RACE/CILLA Hackathon.",
   },
   {
+    type: "award" as const,
+    icon: Medal,
+    title: "2nd Prize - Case Conclave",
+    org: "VYASA 2K26, ESEC",
+    date: "2026",
+    desc: "Recognized for presenting our idea as an innovative solution at the VYASA/Case Conclave Event.",
+  },
+  {
     type: "certification" as const,
     icon: Award,
     title: "Cybersecurity Professional Certification",
