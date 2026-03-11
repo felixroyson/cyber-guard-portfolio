@@ -11,9 +11,9 @@ const socialIcons = [
 ];
 
 const stats = [
-  { value: "10+", label: "Projects Completed" },
-  { value: "5+", label: "Certifications" },
-  { value: "3+", label: "Years Experience" },
+  { value: "3+", label: "Projects Completed" },
+  { value: "2+", label: "Certifications" },
+  { value: "8.18", label: "CGPA (6th Sem)" },
 ];
 
 const HeroSection = () => {
