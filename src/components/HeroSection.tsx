@@ -87,12 +87,8 @@ const HeroSection = () => {
                 <div className="w-56 h-56 md:w-72 md:h-72 rounded-full bg-primary/10 blur-3xl" />
               </div>
 
-              {/* Orbit rings */}
-              <div className="absolute inset-8 rounded-full border border-primary/10" />
-              <div className="absolute inset-2 rounded-full border border-primary/5" />
-
               {/* Center avatar with profile photo */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center z-10">
                 <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-primary/40 shadow-[0_0_30px_hsl(195_100%_50%/0.2)]">
                   <img src={profileImg} alt="Felix Roysom A" className="w-full h-full object-cover" />
                 </div>
