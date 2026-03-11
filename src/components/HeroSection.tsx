@@ -110,7 +110,9 @@ const HeroSection = () => {
                   <span className="text-xs font-semibold text-primary">Proverbs 21:5</span>
                 </div>
                 <p className="text-xs text-muted-foreground italic leading-relaxed">
-                  "The plans of the diligent lead surely to abundance, but everyone who is hasty comes only to poverty."
+                  "The plans of the diligent lead surely to abundance,
+                  <br />
+                  but everyone who is hasty comes only to poverty."
                 </p>
               </motion.div>
 
