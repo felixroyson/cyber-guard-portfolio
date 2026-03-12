@@ -34,7 +34,7 @@ const ContactSection = () => {
           </p>
         </AnimatedSection>
 
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-6 max-w-5xl">
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-6 max-w-6xl mx-auto">
           {/* Send Message – larger */}
           <AnimatedSection delay={0.1}>
             <div className="glass-card neon-border p-8 h-full">

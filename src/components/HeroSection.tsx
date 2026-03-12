@@ -81,7 +81,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-80 h-80 md:w-[420px] md:h-[420px]">
+            <div className="relative w-80 h-72 md:w-[480px] md:h-[380px]">
               {/* Glow behind avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-56 h-56 md:w-72 md:h-72 rounded-full bg-primary/10 blur-3xl" />
@@ -100,7 +100,7 @@ const HeroSection = () => {
 
               {/* Client Feedback dialogue box */}
               <motion.div
-                className="absolute bottom-6 right-0 md:bottom-10 md:-right-4 glass-card p-4 md:p-5 max-w-[280px] md:max-w-[320px] shadow-lg"
+                className="absolute -bottom-4 right-0 md:-bottom-2 md:-right-4 glass-card p-3 md:p-4 max-w-[260px] md:max-w-[300px] shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
