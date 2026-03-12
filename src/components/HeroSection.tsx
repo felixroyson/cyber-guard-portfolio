@@ -100,16 +100,16 @@ const HeroSection = () => {
 
               {/* Client Feedback dialogue box */}
               <motion.div
-                className="absolute bottom-6 right-0 md:bottom-10 md:-right-4 glass-card p-3 md:p-4 max-w-[220px] md:max-w-[260px] shadow-lg"
+                className="absolute bottom-6 right-0 md:bottom-10 md:-right-4 glass-card p-4 md:p-5 max-w-[280px] md:max-w-[320px] shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
               >
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-2">
                   <MessageCircle className="w-4 h-4 text-primary" />
                   <span className="text-xs font-semibold text-primary">Proverbs 21:5</span>
                 </div>
-                <p className="text-xs text-muted-foreground italic leading-relaxed whitespace-pre-line">
+                <p className="text-sm text-muted-foreground italic leading-[1.8] whitespace-pre-line">
                   {"\"The plans of the diligent lead surely to abundance,\nbut everyone who is hasty comes only to poverty.\""}
                 </p>
               </motion.div>
