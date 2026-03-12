@@ -6,6 +6,44 @@
 
 @layer base {
   :root {
+    --background: 0 0% 98%;
+    --foreground: 220 15% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 10%;
+
+    --primary: 195 100% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 15% 93%;
+    --secondary-foreground: 220 15% 20%;
+
+    --muted: 220 10% 92%;
+    --muted-foreground: 220 10% 40%;
+
+    --accent: 260 80% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 195 100% 38%;
+
+    --radius: 0.75rem;
+
+    --neon-cyan: 195 100% 38%;
+    --neon-purple: 260 80% 60%;
+    --neon-glow: 0 0 20px hsl(195 100% 38% / 0.3), 0 0 40px hsl(195 100% 38% / 0.15);
+    --glass-bg: 0 0% 100% / 0.7;
+    --glass-border: 220 15% 80% / 0.4;
+  }
+
+  .dark {
     --background: 220 15% 5%;
     --foreground: 0 0% 95%;
 

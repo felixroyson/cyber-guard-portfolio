@@ -100,7 +100,7 @@ const HeroSection = () => {
 
               {/* Client Feedback dialogue box */}
               <motion.div
-                className="absolute bottom-6 right-0 md:bottom-10 md:-right-4 glass-card p-4 md:p-5 max-w-[280px] md:max-w-[320px] shadow-lg"
+                className="absolute -bottom-4 right-0 md:-bottom-2 md:-right-4 glass-card p-3 md:p-4 max-w-[260px] md:max-w-[300px] shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
