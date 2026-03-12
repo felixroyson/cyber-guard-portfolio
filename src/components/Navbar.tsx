@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Shield, Sun, Moon } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useTheme } from "next-themes";
 
 const links = ["Home", "About", "Skills", "Projects", "Achievements", "Contact"];
 
@@ -10,7 +9,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
-  const { theme, setTheme } = useTheme();
+  
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -97,22 +96,11 @@ const Navbar = () => {
         </div>
 
         <motion.div
-          className="hidden md:flex items-center gap-3"
+          className="hidden md:block"
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-9 h-9 rounded-full bg-secondary/50 border border-border/40 flex items-center justify-center hover:bg-primary/10 hover:border-primary/30 transition-all duration-300"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4 text-primary" />
-            ) : (
-              <Moon className="w-4 h-4 text-primary" />
-            )}
-          </button>
           <Button
             className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 shadow-[0_0_20px_hsl(195_100%_50%/0.2)] hover:shadow-[0_0_30px_hsl(195_100%_50%/0.35)] transition-shadow duration-300"
             onClick={() => handleClick("Contact")}
