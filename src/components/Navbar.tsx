@@ -9,7 +9,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
-  const { theme, setTheme } = useTheme();
+  
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
