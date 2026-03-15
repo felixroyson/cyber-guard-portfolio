@@ -6,21 +6,34 @@ import ProjectsSection from "@/components/ProjectsSection";
 import AchievementsSection from "@/components/AchievementsSection";
 import ContactSection from "@/components/ContactSection";
 import SectionDivider from "@/components/SectionDivider";
+import ParallaxSection from "@/components/ParallaxSection";
 
 const Index = () => (
   <div className="min-h-screen bg-background cyber-grid relative">
     <Navbar />
-    <HeroSection />
+    <ParallaxSection variant="cyan-left">
+      <HeroSection />
+    </ParallaxSection>
     <SectionDivider variant="cyber" />
-    <AboutSection />
+    <ParallaxSection variant="purple-right">
+      <AboutSection />
+    </ParallaxSection>
     <SectionDivider variant="pulse" />
-    <SkillsSection />
+    <ParallaxSection variant="dual">
+      <SkillsSection />
+    </ParallaxSection>
     <SectionDivider variant="scan" />
-    <ProjectsSection />
+    <ParallaxSection variant="cyan-left">
+      <ProjectsSection />
+    </ParallaxSection>
     <SectionDivider variant="glitch" />
-    <AchievementsSection />
+    <ParallaxSection variant="center">
+      <AchievementsSection />
+    </ParallaxSection>
     <SectionDivider variant="cyber" />
-    <ContactSection />
+    <ParallaxSection variant="purple-right">
+      <ContactSection />
+    </ParallaxSection>
   </div>
 );
 
