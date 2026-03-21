@@ -62,7 +62,11 @@ const Navbar = () => {
         >
           <Shield className="w-6 h-6 text-primary" />
           <span className="font-mono font-bold text-lg text-foreground">
+<<<<<<< HEAD
             FELIX<span className="text-primary">.</span>F2R
+=======
+            Felix<span className="text-primary">.</span>sec
+>>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
           </span>
         </motion.div>
 

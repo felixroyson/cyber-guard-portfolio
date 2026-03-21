@@ -9,9 +9,15 @@ const cards = [
 ];
 
 const highlights = [
+<<<<<<< HEAD
   { icon: Code, label: "Languages", value: "Python, Bash"},
   { icon: Database, label: "Databases", value: "MySQL, MongoDB, PostgreSQL" },
   { icon: Terminal, label: "OS", value: "Linux, Windows" },
+=======
+  { icon: Code, label: "Languages", value: "Python, Bash, JavaScript" },
+  { icon: Database, label: "Databases", value: "MySQL, MongoDB" },
+  { icon: Terminal, label: "OS", value: "Kali Linux, Ubuntu, Windows" },
+>>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
   { icon: Shield, label: "Focus", value: "SOC, Pentesting, VAPT" },
 ];
 
@@ -77,7 +83,11 @@ const AboutSection = () => (
 
             <div className="mt-8 pt-6 border-t border-border/20">
               <p className="text-xs text-muted-foreground">
+<<<<<<< HEAD
                 Currently pursuing M.Tech in Computer Science & Engineering with a specialization in Cybersecurity.
+=======
+                Currently pursuing B.E. in Computer Science & Engineering with a specialization in Cybersecurity.
+>>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
               </p>
             </div>
           </div>
