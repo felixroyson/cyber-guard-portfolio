@@ -6,9 +6,9 @@ import profileImg from "@/assets/profile.png";
 import TypingText from "@/components/TypingText";
 
 const socialIcons = [
-  { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/", position: { top: "8%", right: "5%" } },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/", position: { bottom: "15%", left: "2%" } },
-  { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm", position: { top: "20%", left: "8%" } },
+  { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/" },
+  { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm" },
 ];
 
 const stats = [
@@ -16,6 +16,7 @@ const stats = [
   { value: "2+", label: "Certifications" },
   { value: "10+", label: "Skills" },
 ];
+
 
 const HeroSection = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
