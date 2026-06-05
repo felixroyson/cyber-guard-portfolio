@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, Zap, ZapOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
 
 const links = ["Home", "About", "Skills", "Projects", "Achievements", "Contact"];
 
