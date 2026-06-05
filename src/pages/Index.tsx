@@ -10,6 +10,7 @@ import ContactSection from "@/components/ContactSection";
 import SectionDivider from "@/components/SectionDivider";
 import ParallaxSection from "@/components/ParallaxSection";
 import IntroLoader from "@/components/IntroLoader";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
   const [loading, setLoading] = useState(true);
@@ -46,6 +47,7 @@ const Index = () => {
           <ParallaxSection variant="purple-right">
             <ContactSection />
           </ParallaxSection>
+          <ScrollToTop />
         </div>
       )}
     </>
