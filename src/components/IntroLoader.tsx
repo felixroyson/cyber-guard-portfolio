@@ -102,11 +102,7 @@ const IntroLoader = ({ onComplete }: { onComplete: () => void }) => {
           transition={{ delay: 0.4 }}
         >
           <h1 className="font-mono text-2xl font-bold text-foreground">
-<<<<<<< HEAD
             FELIX<span className="text-primary">.</span>F2R
-=======
-            Felix<span className="text-primary">.</span>sec
->>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
           </h1>
           <p className="text-xs text-muted-foreground mt-1 tracking-widest uppercase">
             Security Portfolio

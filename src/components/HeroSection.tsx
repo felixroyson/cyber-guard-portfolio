@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import profileImg from "@/assets/profile.png";
+import TypingText from "@/components/TypingText";
 
 const socialIcons = [
   { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/", position: { top: "8%", right: "5%" } },
@@ -34,19 +35,11 @@ const HeroSection = () => {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
               Available for opportunities
             </div>
-<<<<<<< HEAD
-            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground max-w-3xl">
-            Cybersecurity &
-            <span className="block text-primary">
-              Secure Systems Engineer
-            </span>
-=======
-            <p className="text-muted-foreground text-sm">Felix Roysom A+</p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground">
-              Cybersecurity &{" "}
-              <span className="text-primary">Secure Systems</span>{" "}
-              <span className="text-foreground">Engineer.</span>
->>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
+            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground max-w-3xl min-h-[2.4em]">
+              <TypingText text="Cybersecurity &" speed={55} />
+              <span className="block text-primary">
+                <TypingText text="Secure Systems Engineer" speed={55} delay={900} />
+              </span>
             </h1>
             <p className="text-muted-foreground leading-relaxed max-w-lg">
               Computer Science Engineering student focused on cybersecurity, network security, and secure digital infrastructure. Interested in cyber defense and security monitoring systems.
@@ -108,11 +101,7 @@ const HeroSection = () => {
 
               {/* Client Feedback dialogue box */}
               <motion.div
-<<<<<<< HEAD
                 className="absolute -bottom-4 right-0 md:-bottom-2 md:-right-4 glass-card p-3 md:p-4 max-w-[320px] md:max-w-[420px] shadow-lg"
-=======
-                className="absolute -bottom-4 right-0 md:-bottom-2 md:-right-4 glass-card p-3 md:p-4 max-w-[260px] md:max-w-[300px] shadow-lg"
->>>>>>> 3eb901b6153539f57bc0b9de46975dbc7030dad7
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
