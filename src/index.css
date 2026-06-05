@@ -129,4 +129,14 @@
   .animate-pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
   }
+
+  /* Reduced motion: disable continuous, decorative animations */
+  .reduce-motion .animate-orbit,
+  .reduce-motion .animate-orbit-reverse,
+  .reduce-motion .animate-marquee,
+  .reduce-motion .animate-float,
+  .reduce-motion .animate-pulse-glow,
+  .reduce-motion .animate-pulse {
+    animation: none !important;
+  }
 }
