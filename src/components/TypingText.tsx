@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface TypingTextProps {
   text: string;
@@ -9,10 +10,18 @@ interface TypingTextProps {
 }
 
 const TypingText = ({ text, speed = 60, delay = 0, className = "", cursorClassName = "" }: TypingTextProps) => {
-  const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+  const [reduced] = useReducedMotion();
+  const [displayed, setDisplayed] = useState(reduced ? text : "");
+  const [done, setDone] = useState(reduced);
 
   useEffect(() => {
+    if (reduced) {
+      setDisplayed(text);
+      setDone(true);
+      return;
+    }
+    setDisplayed("");
+    setDone(false);
     let i = 0;
     let interval: ReturnType<typeof setInterval>;
     const startTimer = setTimeout(() => {
@@ -29,14 +38,16 @@ const TypingText = ({ text, speed = 60, delay = 0, className = "", cursorClassNa
       clearTimeout(startTimer);
       if (interval) clearInterval(interval);
     };
-  }, [text, speed, delay]);
+  }, [text, speed, delay, reduced]);
 
   return (
     <span className={className}>
       {displayed}
-      <span
-        className={`inline-block w-[2px] h-[0.9em] align-middle ml-1 bg-primary ${done ? "animate-pulse-glow" : ""} ${cursorClassName}`}
-      />
+      {!reduced && (
+        <span
+          className={`inline-block w-[2px] h-[0.9em] align-middle ml-1 bg-primary ${done ? "animate-pulse-glow" : ""} ${cursorClassName}`}
+        />
+      )}
     </span>
   );
 };
