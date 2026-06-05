@@ -34,11 +34,11 @@ const HeroSection = () => {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
               Available for opportunities
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground max-w-3xl">
-            Cybersecurity &
-            <span className="block text-primary">
-              Secure Systems Engineer
-            </span>
+            <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] text-foreground max-w-3xl min-h-[2.4em]">
+              <TypingText text="Cybersecurity &" speed={55} />
+              <span className="block text-primary">
+                <TypingText text="Secure Systems Engineer" speed={55} delay={900} />
+              </span>
             </h1>
             <p className="text-muted-foreground leading-relaxed max-w-lg">
               Computer Science Engineering student focused on cybersecurity, network security, and secure digital infrastructure. Interested in cyber defense and security monitoring systems.
