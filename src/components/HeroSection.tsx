@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import profileImg from "@/assets/profile.png";
+import TypingText from "@/components/TypingText";
 
 const socialIcons = [
   { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/", position: { top: "8%", right: "5%" } },
