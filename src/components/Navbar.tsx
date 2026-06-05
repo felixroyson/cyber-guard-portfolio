@@ -11,6 +11,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
+  const [reduced, setReduced] = useReducedMotion();
+
   
 
   useEffect(() => {
