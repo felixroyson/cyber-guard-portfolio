@@ -133,11 +133,6 @@ const Navbar = () => {
             {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-
-
-        <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
       {open && (
