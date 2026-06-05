@@ -6,9 +6,9 @@ import profileImg from "@/assets/profile.png";
 import TypingText from "@/components/TypingText";
 
 const socialIcons = [
-  { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/", position: { top: "8%", right: "5%" } },
-  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/", position: { bottom: "15%", left: "2%" } },
-  { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm", position: { top: "20%", left: "8%" } },
+  { icon: Github, label: "GitHub", href: "https://github.com/felixroyson/" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/" },
+  { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm" },
 ];
 
 const stats = [
@@ -16,6 +16,7 @@ const stats = [
   { value: "2+", label: "Certifications" },
   { value: "10+", label: "Skills" },
 ];
+
 
 const HeroSection = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -82,20 +83,65 @@ const HeroSection = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative w-80 h-72 md:w-[480px] md:h-[380px]">
+            <div className="relative w-80 h-80 md:w-[480px] md:h-[480px] [--orbit-r:130px] md:[--orbit-r:175px]">
               {/* Glow behind avatar */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-56 h-56 md:w-72 md:h-72 rounded-full bg-primary/10 blur-3xl" />
               </div>
 
               {/* Orbit rings */}
-              <div className="absolute inset-8 rounded-full border border-primary/10" />
-              <div className="absolute inset-2 rounded-full border border-primary/5" />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[calc(var(--orbit-r)*2)] h-[calc(var(--orbit-r)*2)] rounded-full border border-dashed border-primary/15" />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-[calc(var(--orbit-r)*2-28px)] h-[calc(var(--orbit-r)*2-28px)] rounded-full border border-primary/10" />
+              </div>
 
               {/* Center avatar with profile photo */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-primary/40 shadow-[0_0_30px_hsl(195_100%_50%/0.2)]">
                   <img src={profileImg} alt="Felix Roysom A" className="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              {/* Orbiting icons — wrapper rotates, icons counter-rotate to stay upright */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="relative w-[calc(var(--orbit-r)*2)] h-[calc(var(--orbit-r)*2)] animate-orbit">
+                  {socialIcons.map((item, i) => {
+                    const Icon = item.icon;
+                    const angle = (i * 360) / socialIcons.length - 90;
+                    const isHover = hoveredIdx === i;
+                    return (
+                      <a
+                        key={i}
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={item.label}
+                        onMouseEnter={() => setHoveredIdx(i)}
+                        onMouseLeave={() => setHoveredIdx(null)}
+                        style={{
+                          transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(calc(var(--orbit-r) * -1)) rotate(${-angle}deg)`,
+                        }}
+                        className="absolute top-1/2 left-1/2 animate-orbit-reverse pointer-events-auto group"
+                      >
+                        <div
+                          className={`w-11 h-11 md:w-14 md:h-14 rounded-full bg-card border flex items-center justify-center transition-all duration-300 ${
+                            isHover
+                              ? "scale-125 bg-primary/20 border-primary/50 shadow-[0_0_20px_hsl(195_100%_50%/0.4)]"
+                              : "border-border/40 hover:border-primary/30"
+                          }`}
+                        >
+                          <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                        </div>
+                        {isHover && (
+                          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card border border-border/40 rounded-lg px-2 py-1">
+                            {item.label}
+                          </div>
+                        )}
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -114,42 +160,8 @@ const HeroSection = () => {
                   {"\"The plans of the diligent lead surely to abundance,\nbut everyone who is hasty comes only to poverty.\""}
                 </p>
               </motion.div>
-
-              {/* Floating social icons */}
-              {socialIcons.map((item, i) => {
-                const Icon = item.icon;
-                return (
-                  <motion.a
-                    key={i}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute group"
-                    style={item.position}
-                    onMouseEnter={() => setHoveredIdx(i)}
-                    onMouseLeave={() => setHoveredIdx(null)}
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 3 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <div className={`w-11 h-11 md:w-14 md:h-14 rounded-full bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${hoveredIdx === i ? "scale-125 bg-primary/20 border-primary/50 shadow-[0_0_20px_hsl(195_100%_50%/0.4)]" : "hover:border-primary/30"}`}>
-                      <Icon className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                    </div>
-                    {hoveredIdx === i && (
-                      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card border border-border/40 rounded-lg px-2 py-1">
-                        {item.label}
-                      </div>
-                    )}
-                  </motion.a>
-                );
-              })}
-
-              {/* Connecting lines SVG */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
-                <line x1="50" y1="50" x2="85" y2="12" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
-                <line x1="50" y1="50" x2="12" y2="78" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
-                <line x1="50" y1="50" x2="15" y2="25" stroke="hsl(195 100% 50% / 0.08)" strokeWidth="0.3" />
-              </svg>
             </div>
+
           </motion.div>
         </div>
       </div>

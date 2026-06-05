@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, Zap, ZapOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+
 
 const links = ["Home", "About", "Skills", "Projects", "Achievements", "Contact"];
 
@@ -9,6 +11,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("Home");
+  const [reduced, setReduced] = useReducedMotion();
+
   
 
   useEffect(() => {
@@ -101,6 +105,14 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
+          <button
+            onClick={() => setReduced(!reduced)}
+            aria-label={reduced ? "Enable animations" : "Reduce motion"}
+            title={reduced ? "Animations off — click to enable" : "Animations on — click to reduce motion"}
+            className="w-9 h-9 rounded-full border border-primary/20 text-primary flex items-center justify-center hover:bg-primary/10 transition-colors"
+          >
+            {reduced ? <ZapOff className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+          </button>
           <Button
             className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 shadow-[0_0_20px_hsl(195_100%_50%/0.2)] hover:shadow-[0_0_30px_hsl(195_100%_50%/0.35)] transition-shadow duration-300"
             onClick={() => handleClick("Contact")}
@@ -109,9 +121,18 @@ const Navbar = () => {
           </Button>
         </motion.div>
 
-        <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={() => setReduced(!reduced)}
+            aria-label={reduced ? "Enable animations" : "Reduce motion"}
+            className="w-9 h-9 rounded-full border border-primary/20 text-primary flex items-center justify-center"
+          >
+            {reduced ? <ZapOff className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+          </button>
+          <button onClick={() => setOpen(!open)} className="text-foreground" aria-label="Menu">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {open && (

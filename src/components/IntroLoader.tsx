@@ -12,27 +12,17 @@ const lines = [
 const IntroLoader = ({ onComplete }: { onComplete: () => void }) => {
   const [currentLine, setCurrentLine] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [exiting, setExiting] = useState(false);
 
   useEffect(() => {
     const lineInterval = setInterval(() => {
-      setCurrentLine((prev) => {
-        if (prev < lines.length - 1) return prev + 1;
-        return prev;
-      });
+      setCurrentLine((prev) => (prev < lines.length - 1 ? prev + 1 : prev));
     }, 600);
 
     const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) return 100;
-        return prev + 2;
-      });
+      setProgress((prev) => (prev >= 100 ? 100 : prev + 2));
     }, 50);
 
-    const exitTimer = setTimeout(() => {
-      setExiting(true);
-      setTimeout(onComplete, 800);
-    }, 3200);
+    const exitTimer = setTimeout(onComplete, 3000);
 
     return () => {
       clearInterval(lineInterval);
@@ -45,9 +35,11 @@ const IntroLoader = ({ onComplete }: { onComplete: () => void }) => {
     <motion.div
       className="fixed inset-0 z-[100] bg-background flex items-center justify-center overflow-hidden"
       initial={{ opacity: 1 }}
-      animate={exiting ? { opacity: 0 } : {}}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
+
       {/* Background grid */}
       <div className="absolute inset-0 cyber-grid opacity-40" />
 

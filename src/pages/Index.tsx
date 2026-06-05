@@ -16,41 +16,37 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <>
+    <div className="min-h-screen bg-background cyber-grid relative">
+      <Navbar />
+      <ParallaxSection variant="cyan-left">
+        <HeroSection />
+      </ParallaxSection>
+      <SectionDivider variant="cyber" />
+      <ParallaxSection variant="purple-right">
+        <AboutSection />
+      </ParallaxSection>
+      <SectionDivider variant="pulse" />
+      <ParallaxSection variant="dual">
+        <SkillsSection />
+      </ParallaxSection>
+      <SectionDivider variant="scan" />
+      <ParallaxSection variant="cyan-left">
+        <ProjectsSection />
+      </ParallaxSection>
+      <SectionDivider variant="glitch" />
+      <ParallaxSection variant="center">
+        <AchievementsSection />
+      </ParallaxSection>
+      <SectionDivider variant="cyber" />
+      <ParallaxSection variant="purple-right">
+        <ContactSection />
+      </ParallaxSection>
+      <ScrollToTop />
+
       <AnimatePresence>
         {loading && <IntroLoader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
-
-      {!loading && (
-        <div className="min-h-screen bg-background cyber-grid relative">
-          <Navbar />
-          <ParallaxSection variant="cyan-left">
-            <HeroSection />
-          </ParallaxSection>
-          <SectionDivider variant="cyber" />
-          <ParallaxSection variant="purple-right">
-            <AboutSection />
-          </ParallaxSection>
-          <SectionDivider variant="pulse" />
-          <ParallaxSection variant="dual">
-            <SkillsSection />
-          </ParallaxSection>
-          <SectionDivider variant="scan" />
-          <ParallaxSection variant="cyan-left">
-            <ProjectsSection />
-          </ParallaxSection>
-          <SectionDivider variant="glitch" />
-          <ParallaxSection variant="center">
-            <AchievementsSection />
-          </ParallaxSection>
-          <SectionDivider variant="cyber" />
-          <ParallaxSection variant="purple-right">
-            <ContactSection />
-          </ParallaxSection>
-          <ScrollToTop />
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
