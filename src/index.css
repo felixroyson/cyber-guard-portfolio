@@ -144,6 +144,15 @@
   .animate-pulse-glow {
     animation: pulse-glow 3s ease-in-out infinite;
   }
+  .animate-bubble-float {
+    animation: bubble-float 6s ease-in-out infinite;
+  }
+  .animate-bubble-shine {
+    animation: bubble-shine 4s ease-in-out infinite;
+  }
+  .animate-bubble-rise {
+    animation: bubble-rise linear infinite;
+  }
 
   /* Reduced motion: disable continuous, decorative animations */
   .reduce-motion .animate-orbit,
@@ -151,6 +160,9 @@
   .reduce-motion .animate-marquee,
   .reduce-motion .animate-float,
   .reduce-motion .animate-pulse-glow,
+  .reduce-motion .animate-bubble-float,
+  .reduce-motion .animate-bubble-shine,
+  .reduce-motion .animate-bubble-rise,
   .reduce-motion .animate-pulse {
     animation: none !important;
   }
