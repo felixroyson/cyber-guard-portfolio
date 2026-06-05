@@ -105,6 +105,14 @@ const Navbar = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
+          <button
+            onClick={() => setReduced(!reduced)}
+            aria-label={reduced ? "Enable animations" : "Reduce motion"}
+            title={reduced ? "Animations off — click to enable" : "Animations on — click to reduce motion"}
+            className="w-9 h-9 rounded-full border border-primary/20 text-primary flex items-center justify-center hover:bg-primary/10 transition-colors"
+          >
+            {reduced ? <ZapOff className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+          </button>
           <Button
             className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-6 shadow-[0_0_20px_hsl(195_100%_50%/0.2)] hover:shadow-[0_0_30px_hsl(195_100%_50%/0.35)] transition-shadow duration-300"
             onClick={() => handleClick("Contact")}
@@ -112,6 +120,20 @@ const Navbar = () => {
             Contact Me
           </Button>
         </motion.div>
+
+        <div className="md:hidden flex items-center gap-2">
+          <button
+            onClick={() => setReduced(!reduced)}
+            aria-label={reduced ? "Enable animations" : "Reduce motion"}
+            className="w-9 h-9 rounded-full border border-primary/20 text-primary flex items-center justify-center"
+          >
+            {reduced ? <ZapOff className="w-4 h-4" /> : <Zap className="w-4 h-4" />}
+          </button>
+          <button onClick={() => setOpen(!open)} className="text-foreground" aria-label="Menu">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
 
         <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
           {open ? <X size={24} /> : <Menu size={24} />}
