@@ -22,12 +22,6 @@ const projects = [
     tech: ["Python", "Automation", "ML", "REST API"],
     github: "https://github.com/felixroyson/trusty-file-protector",
   },
-  {
-    title: "GC – Guardian Companion",
-    desc: "A smart personal safety and routine monitoring application designed to enhance user security through real-time tracking and alerts.",
-    tech: ["React", "Supabase", "Maps API"],
-    github: "#",
-  },
 ];
 
 const ProjectsSection = () => {
