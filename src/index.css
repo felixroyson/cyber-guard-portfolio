@@ -170,9 +170,10 @@
   .animate-bubble-rise {
     animation: bubble-rise linear infinite;
   }
-  .animate-bubble-emerge {
-    animation: bubble-emerge ease-in-out infinite;
+  .animate-bubble-lane-rise {
+    animation: bubble-lane-rise ease-in-out infinite;
   }
+
   .animate-bubble-pop {
     animation: bubble-pop 0.9s cubic-bezier(0.5, -0.3, 0.7, 1.4) forwards;
   }
