@@ -104,72 +104,79 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Orbiting bubble icons — each on its own orbit (different radius, speed & direction) */}
+              {/* Social bubbles — fixed distinct positions, rising loop, pop on click */}
               {socialIcons.map((item, i) => {
                 const Icon = item.icon;
                 const isHover = hoveredIdx === i;
-                // Different radius per icon (different axis/distance)
-                const radii = ["calc(var(--orbit-r) * 0.72)", "calc(var(--orbit-r) * 1)", "calc(var(--orbit-r) * 1.25)"];
-                const durations = [14, 22, 28];
-                const startAngles = [-90, 40, 170];
-                const reverse = i % 2 === 1;
+                const isPopped = poppedIdx === i;
+                // Distinct slots around the avatar (different x/y axis, never overlapping)
+                const slots = [
+                  { x: "-150%", y: "-30%" },   // GitHub – left
+                  { x: "50%", y: "-150%" },    // LinkedIn – top-right
+                  { x: "70%", y: "60%" },      // Gmail – bottom-right
+                ];
+                const durations = [9, 11, 13];
+                const delays = [0, 2.4, 4.7];
+                const slot = slots[i];
                 return (
                   <div
                     key={i}
-                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    className="absolute top-1/2 left-1/2 pointer-events-none"
                     style={{
-                      animation: `${reverse ? "orbit-reverse" : "orbit"} ${durations[i]}s linear infinite`,
-                      transform: `rotate(${startAngles[i]}deg)`,
+                      transform: `translate(${slot.x}, ${slot.y})`,
                     }}
                   >
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      type="button"
                       aria-label={item.label}
                       onMouseEnter={() => setHoveredIdx(i)}
                       onMouseLeave={() => setHoveredIdx(null)}
-                      style={{
-                        transform: `translateY(calc(${radii[i]} * -1))`,
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (isPopped) return;
+                        setPoppedIdx(i);
+                        window.setTimeout(() => {
+                          window.open(item.href, "_blank", "noopener,noreferrer");
+                        }, 450);
+                        window.setTimeout(() => setPoppedIdx(null), 1400);
                       }}
-                      className="absolute pointer-events-auto group"
+                      className="relative pointer-events-auto group block bg-transparent border-0 p-0 cursor-pointer"
+                      style={{
+                        animation: isPopped
+                          ? "bubble-pop 0.9s cubic-bezier(0.5,-0.3,0.7,1.4) forwards"
+                          : `bubble-emerge ${durations[i]}s ease-in-out ${delays[i]}s infinite`,
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        transform: "translate(-50%, -50%)",
+                      }}
                     >
                       <div
+                        className={`relative w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden backdrop-blur-md border ${
+                          isHover
+                            ? "scale-125 border-primary/70 shadow-[0_0_30px_hsl(195_100%_50%/0.55)]"
+                            : "border-primary/30 shadow-[0_0_18px_hsl(195_100%_50%/0.25)] hover:border-primary/50"
+                        }`}
                         style={{
-                          animation: `${reverse ? "orbit" : "orbit-reverse"} ${durations[i]}s linear infinite`,
+                          background:
+                            "radial-gradient(circle at 30% 30%, hsl(195 100% 70% / 0.45), hsl(195 100% 50% / 0.18) 45%, hsl(220 30% 10% / 0.55) 75%)",
                         }}
                       >
-                        <div
-                          style={{ animationDelay: `${i * 0.7}s` }}
-                          className="animate-bubble-float"
-                        >
-                          <div
-                            className={`relative w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden backdrop-blur-md border ${
-                              isHover
-                                ? "scale-125 border-primary/70 shadow-[0_0_30px_hsl(195_100%_50%/0.55)]"
-                                : "border-primary/30 shadow-[0_0_18px_hsl(195_100%_50%/0.25)] hover:border-primary/50"
-                            }`}
-                            style={{
-                              background:
-                                "radial-gradient(circle at 30% 30%, hsl(195 100% 70% / 0.45), hsl(195 100% 50% / 0.18) 45%, hsl(220 30% 10% / 0.55) 75%)",
-                            }}
-                          >
-                            <div className="absolute inset-1 rounded-full border border-primary/20 pointer-events-none" />
-                            <div className="absolute top-1 left-1 w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 blur-[2px] animate-bubble-shine" />
-                            <div className="absolute top-2 left-3 w-1 h-1 rounded-full bg-white/70" />
-                            <Icon className="relative z-10 w-5 h-5 md:w-6 md:h-6 text-primary drop-shadow-[0_0_6px_hsl(195_100%_60%/0.8)]" />
-                          </div>
-                        </div>
-                        {isHover && (
-                          <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card/80 backdrop-blur border border-border/40 rounded-lg px-2 py-1">
-                            {item.label}
-                          </div>
-                        )}
+                        <div className="absolute inset-1 rounded-full border border-primary/20 pointer-events-none" />
+                        <div className="absolute top-1 left-1 w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 blur-[2px] animate-bubble-shine" />
+                        <div className="absolute top-2 left-3 w-1 h-1 rounded-full bg-white/70" />
+                        <Icon className="relative z-10 w-5 h-5 md:w-6 md:h-6 text-primary drop-shadow-[0_0_6px_hsl(195_100%_60%/0.8)]" />
                       </div>
-                    </a>
+                      {isHover && !isPopped && (
+                        <div className="absolute -bottom-9 left-1/2 -translate-x-1/2 text-xs font-mono text-primary whitespace-nowrap bg-card/80 backdrop-blur border border-border/40 rounded-lg px-2 py-1">
+                          {item.label}
+                        </div>
+                      )}
+                    </button>
                   </div>
                 );
               })}
+
 
 
               {/* Ambient rising bubbles */}
