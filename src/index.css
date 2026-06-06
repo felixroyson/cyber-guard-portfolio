@@ -169,6 +169,12 @@
   .animate-bubble-rise {
     animation: bubble-rise linear infinite;
   }
+  .animate-bubble-emerge {
+    animation: bubble-emerge ease-in-out infinite;
+  }
+  .animate-bubble-pop {
+    animation: bubble-pop 0.9s cubic-bezier(0.5, -0.3, 0.7, 1.4) forwards;
+  }
 
   /* Reduced motion: disable continuous, decorative animations */
   .reduce-motion .animate-orbit,
@@ -179,7 +185,9 @@
   .reduce-motion .animate-bubble-float,
   .reduce-motion .animate-bubble-shine,
   .reduce-motion .animate-bubble-rise,
+  .reduce-motion .animate-bubble-emerge,
   .reduce-motion .animate-pulse {
     animation: none !important;
   }
+
 }
