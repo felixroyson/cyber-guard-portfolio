@@ -106,27 +106,25 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Social bubbles — fixed distinct positions, rising loop, pop on click */}
+              {/* Social bubbles — each in its own vertical lane (no overlap), rising loop, pop on click */}
               {socialIcons.map((item, i) => {
                 const Icon = item.icon;
                 const isHover = hoveredIdx === i;
                 const isPopped = poppedIdx === i;
-                // Distinct slots around the avatar (different x/y axis, never overlapping)
-                const slots = [
-                  { x: "-150%", y: "-30%" },   // GitHub – left
-                  { x: "50%", y: "-150%" },    // LinkedIn – top-right
-                  { x: "70%", y: "60%" },      // Gmail – bottom-right
+                // Distinct lanes — different left% & vertical anchor so paths never cross
+                const lanes = [
+                  { left: "6%",  top: "50%", range: "180px" },  // GitHub  – left lane (full height)
+                  { left: "50%", top: "8%",  range: "90px"  },  // LinkedIn – top-center lane (short travel above avatar)
+                  { left: "94%", top: "50%", range: "180px" },  // Gmail   – right lane (full height)
                 ];
                 const durations = [9, 11, 13];
-                const delays = [0, 2.4, 4.7];
-                const slot = slots[i];
+                const delays   = [0, 2.6, 5.1];
+                const lane = lanes[i];
                 return (
                   <div
                     key={i}
-                    className="absolute top-1/2 left-1/2 pointer-events-none"
-                    style={{
-                      transform: `translate(${slot.x}, ${slot.y})`,
-                    }}
+                    className="absolute pointer-events-none"
+                    style={{ left: lane.left, top: lane.top }}
                   >
                     <button
                       type="button"
@@ -144,19 +142,16 @@ const HeroSection = () => {
                       }}
                       className="relative pointer-events-auto group block bg-transparent border-0 p-0 cursor-pointer"
                       style={{
+                        ["--lane-range" as any]: lane.range,
                         animation: isPopped
                           ? "bubble-pop 0.9s cubic-bezier(0.5,-0.3,0.7,1.4) forwards"
-                          : `bubble-emerge ${durations[i]}s ease-in-out ${delays[i]}s infinite`,
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        transform: "translate(-50%, -50%)",
+                          : `bubble-lane-rise ${durations[i]}s ease-in-out ${delays[i]}s infinite`,
                       }}
                     >
                       <div
                         className={`relative w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden backdrop-blur-md border ${
                           isHover
-                            ? "scale-125 border-primary/70 shadow-[0_0_30px_hsl(195_100%_50%/0.55)]"
+                            ? "scale-110 border-primary/70 shadow-[0_0_24px_hsl(195_100%_50%/0.5)]"
                             : "border-primary/30 shadow-[0_0_18px_hsl(195_100%_50%/0.25)] hover:border-primary/50"
                         }`}
                         style={{
@@ -178,6 +173,7 @@ const HeroSection = () => {
                   </div>
                 );
               })}
+
 
 
 
