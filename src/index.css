@@ -187,7 +187,7 @@
   .reduce-motion .animate-bubble-float,
   .reduce-motion .animate-bubble-shine,
   .reduce-motion .animate-bubble-rise,
-  .reduce-motion .animate-bubble-emerge,
+  .reduce-motion .animate-bubble-lane-rise,
   .reduce-motion .animate-pulse {
     animation: none !important;
   }
