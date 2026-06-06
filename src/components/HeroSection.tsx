@@ -20,6 +20,8 @@ const stats = [
 
 const HeroSection = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [poppedIdx, setPoppedIdx] = useState<number | null>(null);
+
 
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden hero-gradient">
