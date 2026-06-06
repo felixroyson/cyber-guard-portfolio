@@ -125,21 +125,22 @@
     15% { opacity: 0.8; }
     100% { transform: translateY(-160px) scale(1.1); opacity: 0; }
   }
-  @keyframes bubble-emerge {
-    0% { transform: translate(-50%, calc(-50% + 280px)) scale(0.4); opacity: 0; }
-    20% { opacity: 1; }
-    40%, 75% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    55% { transform: translate(-50%, calc(-50% - 10px)) scale(1.04); }
-    68% { transform: translate(-50%, calc(-50% + 4px)) scale(0.98); }
-    100% { transform: translate(-50%, calc(-50% - 60px)) scale(1.15); opacity: 0; }
+  @keyframes bubble-lane-rise {
+    0% { transform: translate(-50%, var(--lane-range, 220px)) scale(0.45); opacity: 0; }
+    18% { opacity: 1; transform: translate(-50%, calc(var(--lane-range, 220px) * 0.55)) scale(0.9); }
+    45%, 60% { transform: translate(-50%, 0) scale(1); opacity: 1; }
+    52% { transform: translate(-50%, -6px) scale(1.03); }
+    85% { opacity: 1; transform: translate(-50%, calc(var(--lane-range, 220px) * -0.95)) scale(1.08); }
+    100% { transform: translate(-50%, calc(var(--lane-range, 220px) * -1.15)) scale(1.12); opacity: 0; }
   }
   @keyframes bubble-pop {
-    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: blur(0); }
-    30% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
-    45% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; filter: blur(4px); }
-    46% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; filter: blur(0); }
-    100% { transform: translate(-50%, calc(-50% + 340px)) scale(0.35) rotate(20deg); opacity: 0; }
+    0% { transform: translate(-50%, 0) scale(1); opacity: 1; filter: blur(0); }
+    35% { transform: translate(-50%, -4px) scale(1.18); opacity: 1; }
+    50% { transform: translate(-50%, 0) scale(0.25); opacity: 0; filter: blur(3px); }
+    51% { transform: translate(-50%, 0) scale(0.55); opacity: 0.85; filter: blur(0); }
+    100% { transform: translate(-50%, 320px) scale(0.4) rotate(15deg); opacity: 0; }
   }
+
 
   @keyframes pulse-glow {
     0%, 100% { opacity: 0.4; }
