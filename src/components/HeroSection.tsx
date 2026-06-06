@@ -104,26 +104,40 @@ const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Orbiting bubble icons — wrapper rotates, bubbles counter-rotate to stay upright */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="relative w-[calc(var(--orbit-r)*2)] h-[calc(var(--orbit-r)*2)] animate-orbit">
-                  {socialIcons.map((item, i) => {
-                    const Icon = item.icon;
-                    const angle = (i * 360) / socialIcons.length - 90;
-                    const isHover = hoveredIdx === i;
-                    return (
-                      <a
-                        key={i}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={item.label}
-                        onMouseEnter={() => setHoveredIdx(i)}
-                        onMouseLeave={() => setHoveredIdx(null)}
+              {/* Orbiting bubble icons — each on its own orbit (different radius, speed & direction) */}
+              {socialIcons.map((item, i) => {
+                const Icon = item.icon;
+                const isHover = hoveredIdx === i;
+                // Different radius per icon (different axis/distance)
+                const radii = ["calc(var(--orbit-r) * 0.72)", "calc(var(--orbit-r) * 1)", "calc(var(--orbit-r) * 1.25)"];
+                const durations = [14, 22, 28];
+                const startAngles = [-90, 40, 170];
+                const reverse = i % 2 === 1;
+                return (
+                  <div
+                    key={i}
+                    className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                    style={{
+                      animation: `${reverse ? "orbit-reverse" : "orbit"} ${durations[i]}s linear infinite`,
+                      transform: `rotate(${startAngles[i]}deg)`,
+                    }}
+                  >
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                      onMouseEnter={() => setHoveredIdx(i)}
+                      onMouseLeave={() => setHoveredIdx(null)}
+                      style={{
+                        transform: `translateY(calc(${radii[i]} * -1))`,
+                      }}
+                      className="absolute pointer-events-auto group"
+                    >
+                      <div
                         style={{
-                          transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(calc(var(--orbit-r) * -1)) rotate(${-angle}deg)`,
+                          animation: `${reverse ? "orbit" : "orbit-reverse"} ${durations[i]}s linear infinite`,
                         }}
-                        className="absolute top-1/2 left-1/2 animate-orbit-reverse pointer-events-auto group"
                       >
                         <div
                           style={{ animationDelay: `${i * 0.7}s` }}
@@ -140,11 +154,8 @@ const HeroSection = () => {
                                 "radial-gradient(circle at 30% 30%, hsl(195 100% 70% / 0.45), hsl(195 100% 50% / 0.18) 45%, hsl(220 30% 10% / 0.55) 75%)",
                             }}
                           >
-                            {/* Bubble inner ring */}
                             <div className="absolute inset-1 rounded-full border border-primary/20 pointer-events-none" />
-                            {/* Glossy highlight */}
                             <div className="absolute top-1 left-1 w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/60 blur-[2px] animate-bubble-shine" />
-                            {/* Tiny secondary highlight */}
                             <div className="absolute top-2 left-3 w-1 h-1 rounded-full bg-white/70" />
                             <Icon className="relative z-10 w-5 h-5 md:w-6 md:h-6 text-primary drop-shadow-[0_0_6px_hsl(195_100%_60%/0.8)]" />
                           </div>
@@ -154,11 +165,12 @@ const HeroSection = () => {
                             {item.label}
                           </div>
                         )}
-                      </a>
-                    );
-                  })}
-                </div>
-              </div>
+                      </div>
+                    </a>
+                  </div>
+                );
+              })}
+
 
               {/* Ambient rising bubbles */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
