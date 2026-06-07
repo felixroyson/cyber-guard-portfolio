@@ -19,7 +19,10 @@ const skills = [
   { name: "Git", Icon: SiGit },
   { name: "GitHub", Icon: SiGithub },
   { name: "Networking", Icon: TbNetwork },
-  { name: "TCP/IP", Icon: TbWorldWww },
+  { name: "MySQL", Icon: SiMysql },
+  { name: "PostgreSQL", Icon: SiPostgresql },
+  { name: "Docker", Icon: SiDocker },
+  { name: "React", Icon: SiReact },
 ];
 
 const SkillsSection = () => {
