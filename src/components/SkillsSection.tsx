@@ -4,7 +4,7 @@ import {
   SiPython, SiLinux, SiWireshark, SiMetasploit, SiGit, SiGithub,
   SiMysql, SiPostgresql, SiDocker, SiReact,
 } from "react-icons/si";
-import { TbNetwork } from "react-icons/tb";
+import { TbNetwork, TbWorldSearch } from "react-icons/tb";
 import { GiRadarSweep } from "react-icons/gi";
 import { MdBugReport } from "react-icons/md";
 import AnimatedSection from "./AnimatedSection";
@@ -16,6 +16,7 @@ const skills = [
   { name: "Wireshark", Icon: SiWireshark },
   { name: "Burp Suite", Icon: MdBugReport },
   { name: "Metasploit", Icon: SiMetasploit },
+  { name: "OSINT", Icon: TbWorldSearch },
   { name: "Git", Icon: SiGit },
   { name: "GitHub", Icon: SiGithub },
   { name: "Networking", Icon: TbNetwork },
