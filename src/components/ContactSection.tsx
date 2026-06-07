@@ -139,6 +139,27 @@ const ContactSection = () => {
                 ))}
               </div>
 
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <Button
+                  variant="outline"
+                  onClick={handleCopyEmail}
+                  className="rounded-xl border-primary/30 hover:border-primary hover:bg-primary/10 text-foreground"
+                >
+                  {copied ? (
+                    <><Check className="w-4 h-4 mr-2 text-primary" /> Copied!</>
+                  ) : (
+                    <><Copy className="w-4 h-4 mr-2 text-primary" /> Copy Email</>
+                  )}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleDownloadVCard}
+                  className="rounded-xl border-primary/30 hover:border-primary hover:bg-primary/10 text-foreground"
+                >
+                  <Download className="w-4 h-4 mr-2 text-primary" /> Save vCard
+                </Button>
+              </div>
+
               <div className="mt-6 pt-6 border-t border-border/20">
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <MapPin className="w-4 h-4 text-primary" />
