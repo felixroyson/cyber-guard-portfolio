@@ -6,6 +6,7 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import AchievementsSection from "@/components/AchievementsSection";
+import CertificationsTimeline from "@/components/CertificationsTimeline";
 import ContactSection from "@/components/ContactSection";
 import SectionDivider from "@/components/SectionDivider";
 import ParallaxSection from "@/components/ParallaxSection";
@@ -36,6 +37,10 @@ const Index = () => {
       <SectionDivider variant="glitch" />
       <ParallaxSection variant="center">
         <AchievementsSection />
+      </ParallaxSection>
+      <SectionDivider variant="scan" />
+      <ParallaxSection variant="cyan-left">
+        <CertificationsTimeline />
       </ParallaxSection>
       <SectionDivider variant="cyber" />
       <ParallaxSection variant="purple-right">
