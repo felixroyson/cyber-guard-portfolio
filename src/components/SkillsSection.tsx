@@ -2,8 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   SiPython, SiLinux, SiWireshark, SiMetasploit, SiGit, SiGithub,
+  SiMysql, SiPostgresql, SiDocker, SiReact,
 } from "react-icons/si";
-import { TbWorldWww, TbNetwork } from "react-icons/tb";
+import { TbNetwork } from "react-icons/tb";
 import { GiRadarSweep } from "react-icons/gi";
 import { MdBugReport } from "react-icons/md";
 import AnimatedSection from "./AnimatedSection";
@@ -18,7 +19,10 @@ const skills = [
   { name: "Git", Icon: SiGit },
   { name: "GitHub", Icon: SiGithub },
   { name: "Networking", Icon: TbNetwork },
-  { name: "TCP/IP", Icon: TbWorldWww },
+  { name: "MySQL", Icon: SiMysql },
+  { name: "PostgreSQL", Icon: SiPostgresql },
+  { name: "Docker", Icon: SiDocker },
+  { name: "React", Icon: SiReact },
 ];
 
 const SkillsSection = () => {
