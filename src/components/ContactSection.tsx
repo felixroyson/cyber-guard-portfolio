@@ -1,11 +1,13 @@
-import { Github, Linkedin, Mail, ExternalLink, Shield, Send, MapPin, Phone } from "lucide-react";
+import { Github, Linkedin, Mail, ExternalLink, Shield, Send, MapPin, Copy, Check, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
 
+const EMAIL = "felixroys2004@gmail.com";
+
 const contacts = [
-  { icon: Mail, label: "Email", value: "felixroys2004@gmail.com", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm" },
+  { icon: Mail, label: "Email", value: EMAIL, href: `https://mail.google.com/mail/u/0/?fs=1&to=${EMAIL}&tf=cm` },
   { icon: Github, label: "GitHub", value: "felixroyson", href: "https://github.com/felixroyson/" },
   { icon: Linkedin, label: "LinkedIn", value: "Felix Royson A", href: "https://www.linkedin.com/in/felix-royson-a-72894a374/" },
 ];
@@ -14,11 +16,44 @@ const ContactSection = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleSendViaGmail = () => {
     const subject = encodeURIComponent(`Message from ${name}`);
     const body = encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`);
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=felixroys2004@gmail.com&su=${subject}&body=${body}`, "_blank");
+    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${subject}&body=${body}`, "_blank");
+  };
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {}
+  };
+
+  const handleDownloadVCard = () => {
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:Felix Royson A",
+      "N:Royson;Felix;;;",
+      "TITLE:Cybersecurity Enthusiast",
+      `EMAIL;TYPE=INTERNET:${EMAIL}`,
+      "URL:https://github.com/felixroyson",
+      "URL:https://www.linkedin.com/in/felix-royson-a-72894a374/",
+      "ADR;TYPE=HOME:;;;Tamil Nadu;;;India",
+      "END:VCARD",
+    ].join("\n");
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "Felix-Royson-A.vcf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   return (
