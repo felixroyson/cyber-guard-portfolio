@@ -1,6 +1,5 @@
-import { ArrowRight, Github, FlaskConical } from "lucide-react";
+import { Github, FlaskConical } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import AnimatedSection from "./AnimatedSection";
 import { ongoingProjects } from "@/data/ongoingProjects";
