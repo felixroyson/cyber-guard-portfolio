@@ -6,7 +6,7 @@ import AboutSection from "@/components/AboutSection";
 import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import AchievementsSection from "@/components/AchievementsSection";
-import CertificationsTimeline from "@/components/CertificationsTimeline";
+import OngoingProjects from "@/components/OngoingProjects";
 import ContactSection from "@/components/ContactSection";
 import SectionDivider from "@/components/SectionDivider";
 import ParallaxSection from "@/components/ParallaxSection";
