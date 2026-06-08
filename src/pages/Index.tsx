@@ -34,13 +34,13 @@ const Index = () => {
       <ParallaxSection variant="cyan-left">
         <ProjectsSection />
       </ParallaxSection>
-      <SectionDivider variant="glitch" />
-      <ParallaxSection variant="center">
-        <AchievementsSection />
-      </ParallaxSection>
       <SectionDivider variant="scan" />
       <ParallaxSection variant="cyan-left">
         <OngoingProjects />
+      </ParallaxSection>
+      <SectionDivider variant="glitch" />
+      <ParallaxSection variant="center">
+        <AchievementsSection />
       </ParallaxSection>
       <SectionDivider variant="cyber" />
       <ParallaxSection variant="purple-right">
