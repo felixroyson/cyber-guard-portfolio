@@ -76,22 +76,16 @@ const OngoingProjects = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 mt-auto pt-2">
-                  <Button asChild size="sm" className="group/btn">
-                    <Link to={`/projects/${p.slug}`}>
-                      View Project
-                      <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                  {p.github && (
+                {p.github && (
+                  <div className="flex items-center gap-2 mt-auto pt-2">
                     <Button asChild size="sm" variant="ghost" className="text-primary hover:bg-primary/10">
                       <a href={p.github} target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4 mr-1" />
                         GitHub
                       </a>
                     </Button>
-                  )}
-                </div>
+                  </div>
+                )}
               </motion.div>
             </AnimatedSection>
           ))}
