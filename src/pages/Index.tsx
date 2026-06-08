@@ -40,7 +40,7 @@ const Index = () => {
       </ParallaxSection>
       <SectionDivider variant="scan" />
       <ParallaxSection variant="cyan-left">
-        <CertificationsTimeline />
+        <OngoingProjects />
       </ParallaxSection>
       <SectionDivider variant="cyber" />
       <ParallaxSection variant="purple-right">
