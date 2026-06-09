@@ -11,11 +11,6 @@ const socialIcons = [
   { icon: Mail, label: "Gmail", href: "https://mail.google.com/mail/u/0/?fs=1&to=felixroys2004@gmail.com&tf=cm" },
 ];
 
-const stats = [
-  { value: "3+", label: "Projects Completed" },
-  { value: "2+", label: "Certifications" },
-  { value: "10+", label: "Skills" },
-];
 
 
 const HeroSection = () => {
@@ -60,21 +55,6 @@ const HeroSection = () => {
                   </a>
                 </Button>
               </motion.div>
-            </div>
-
-            {/* Stats */}
-            <div className="flex gap-8 pt-6">
-              {stats.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 + i * 0.15 }}
-                >
-                  <p className="text-2xl md:text-3xl font-bold text-foreground">{s.value}</p>
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider">{s.label}</p>
-                </motion.div>
-              ))}
             </div>
           </motion.div>
 
