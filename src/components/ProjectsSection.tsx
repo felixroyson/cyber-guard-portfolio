@@ -1,8 +1,9 @@
-import { Github, X, ChevronDown, ExternalLink, Sparkles } from "lucide-react";
+import { Github, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useMemo, useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+import FeatureAccordion from "./FeatureAccordion";
 
 const projects = [
   {
@@ -45,7 +46,6 @@ const projects = [
 
 const ProjectsSection = () => {
   const [activeTech, setActiveTech] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState<string | null>(null);
 
   const allTech = useMemo(
     () => Array.from(new Set(projects.flatMap((p) => p.tech))).sort(),
@@ -58,9 +58,6 @@ const ProjectsSection = () => {
 
   const toggleTech = (t: string) =>
     setActiveTech((cur) => (cur === t ? null : t));
-
-  const toggleExpand = (title: string) =>
-    setExpanded((cur) => (cur === title ? null : title));
 
   return (
     <section id="projects" className="py-24 relative">
@@ -164,65 +161,15 @@ const ProjectsSection = () => {
                     })}
                   </div>
 
-                  {/* Features accordion */}
-                  <motion.div layout className="border-t border-primary/10 pt-3">
-                    <button
-                      onClick={() => toggleExpand(p.title)}
-                      aria-expanded={isOpen}
-                      className="w-full flex items-center justify-between text-left text-xs font-mono uppercase tracking-wider text-primary/90 hover:text-primary transition-colors"
-                    >
-                      <span className="flex items-center gap-1.5">
-                        <Sparkles className="w-3.5 h-3.5" />
-                        Key Features
-                      </span>
-                      <motion.span
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                      >
-                        <ChevronDown className="w-4 h-4" />
-                      </motion.span>
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.ul
-                          key="features"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{
-                            height: { type: "spring", stiffness: 200, damping: 26 },
-                            opacity: { duration: 0.2 },
-                          }}
-                          className="overflow-hidden text-sm text-foreground/90"
-                        >
-                          <div className="pt-3 space-y-2">
-                            {p.features.map((f, idx) => (
-                              <motion.li
-                                key={f}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.05 + idx * 0.05 }}
-                                className="flex items-start gap-2"
-                              >
-                                <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                                <span>{f}</span>
-                              </motion.li>
-                            ))}
-                          </div>
-                        </motion.ul>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                  {/* Features accordion (shared) */}
+                  <FeatureAccordion
+                    id={`proj-${p.title}`}
+                    items={p.features.map((f) => ({ title: f, content: null }))}
+                    variant="inline"
+                  />
 
                   {/* Actions */}
                   <div className="flex items-center gap-2 mt-auto pt-1">
-                    <Button asChild size="sm" className="group/btn">
-                      <a href={p.github} target="_blank" rel="noopener noreferrer">
-                        View Project
-                        <ExternalLink className="w-4 h-4 ml-1 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                      </a>
-                    </Button>
                     <Button
                       asChild
                       variant="ghost"
