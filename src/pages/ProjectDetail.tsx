@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   Github,
-  ChevronDown,
   ChevronRight,
   Calendar,
   Layers,
@@ -16,12 +15,12 @@ import { Button } from "@/components/ui/button";
 import { getProjectBySlug } from "@/data/ongoingProjects";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
+import FeatureAccordion from "@/components/FeatureAccordion";
 
 const ProjectDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   const project = slug ? getProjectBySlug(slug) : undefined;
 
-  const [openFeature, setOpenFeature] = useState<number | null>(0);
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [uploadedShots, setUploadedShots] = useState<{ url: string; caption: string }[]>([]);
   const [archDiagram, setArchDiagram] = useState<string | null>(null);
