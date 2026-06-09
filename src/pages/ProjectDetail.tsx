@@ -220,48 +220,17 @@ const ProjectDetail = () => {
 
         {/* Features */}
         <SectionTitle>Features Breakdown</SectionTitle>
-        <div className="space-y-3 mb-14">
-          {project.featureDetails.map((f, i) => {
-            const open = openFeature === i;
-            return (
-              <motion.div
-                key={f.title}
-                layout
-                transition={{ type: "spring", stiffness: 220, damping: 26 }}
-                className="glass-card overflow-hidden"
-              >
-                <button
-                  onClick={() => setOpenFeature(open ? null : i)}
-                  aria-expanded={open}
-                  className="w-full flex items-center justify-between p-5 text-left hover:bg-primary/5 transition-colors"
-                >
-                  <span className="font-semibold text-foreground">{f.title}</span>
-                  <motion.span
-                    animate={{ rotate: open ? 180 : 0 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-primary" />
-                  </motion.span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {open && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        height: { type: "spring", stiffness: 200, damping: 26 },
-                        opacity: { duration: 0.2 },
-                      }}
-                      className="overflow-hidden text-sm text-muted-foreground"
-                    >
-                      <div className="px-5 pb-5">{f.desc}</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            );
-          })}
+        <div className="mb-14">
+          <FeatureAccordion
+            id={`detail-${project.slug}`}
+            variant="card"
+            allowMultiple
+            defaultOpen={[0]}
+            items={project.featureDetails.map((f) => ({
+              title: f.title,
+              content: f.desc,
+            }))}
+          />
         </div>
 
         {/* Progress */}
