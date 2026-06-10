@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Sparkles } from "lucide-react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -19,6 +19,8 @@ interface Props {
 }
 
 const STORAGE_PREFIX = "fa:";
+const URL_PARAM = "fa";
+const URL_EVENT = "fa-url-change";
 
 const readStored = (id: string): number[] | null => {
   if (typeof window === "undefined") return null;
@@ -32,6 +34,48 @@ const readStored = (id: string): number[] | null => {
   }
 };
 
+// URL encoding: ?fa=id1:0,2|id2:1
+const parseUrl = (): Record<string, number[]> => {
+  if (typeof window === "undefined") return {};
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get(URL_PARAM);
+  if (!raw) return {};
+  const map: Record<string, number[]> = {};
+  raw.split("|").forEach((seg) => {
+    const [k, v] = seg.split(":");
+    if (!k) return;
+    map[k] = (v ?? "")
+      .split(",")
+      .map((n) => parseInt(n, 10))
+      .filter((n) => !Number.isNaN(n));
+  });
+  return map;
+};
+
+const writeUrl = (id: string, indices: number[]) => {
+  if (typeof window === "undefined") return;
+  const params = new URLSearchParams(window.location.search);
+  const current = parseUrl();
+  if (indices.length === 0) {
+    delete current[id];
+  } else {
+    current[id] = indices;
+  }
+  const encoded = Object.entries(current)
+    .map(([k, v]) => `${k}:${v.join(",")}`)
+    .join("|");
+  if (encoded) {
+    params.set(URL_PARAM, encoded);
+  } else {
+    params.delete(URL_PARAM);
+  }
+  const newUrl = `${window.location.pathname}${
+    params.toString() ? "?" + params.toString() : ""
+  }${window.location.hash}`;
+  window.history.replaceState(null, "", newUrl);
+  window.dispatchEvent(new Event(URL_EVENT));
+};
+
 const FeatureAccordion = ({
   id,
   items,
@@ -42,15 +86,42 @@ const FeatureAccordion = ({
   variant = "inline",
 }: Props) => {
   const [reduced] = useReducedMotion();
-  const [open, setOpen] = useState<number[]>(() => readStored(id) ?? defaultOpen);
+  const reactId = useId();
+  const [open, setOpen] = useState<number[]>(() => {
+    const fromUrl = parseUrl()[id];
+    if (fromUrl) return fromUrl;
+    return readStored(id) ?? defaultOpen;
+  });
 
+  // Sync to sessionStorage + URL
   useEffect(() => {
     try {
       sessionStorage.setItem(STORAGE_PREFIX + id, JSON.stringify(open));
     } catch {
       /* noop */
     }
+    writeUrl(id, open);
   }, [id, open]);
+
+  // Listen to external URL changes (back/forward, share-link load)
+  useEffect(() => {
+    const sync = () => {
+      const fromUrl = parseUrl()[id];
+      if (fromUrl) {
+        setOpen((cur) =>
+          cur.length === fromUrl.length && cur.every((v, i) => v === fromUrl[i])
+            ? cur
+            : fromUrl
+        );
+      }
+    };
+    window.addEventListener("popstate", sync);
+    window.addEventListener(URL_EVENT, sync);
+    return () => {
+      window.removeEventListener("popstate", sync);
+      window.removeEventListener(URL_EVENT, sync);
+    };
+  }, [id]);
 
   const toggle = useCallback(
     (i: number) => {
@@ -74,9 +145,11 @@ const FeatureAccordion = ({
 
   if (variant === "card") {
     return (
-      <div className="space-y-3">
+      <div className="space-y-3" role="region" aria-label={label}>
         {items.map((f, i) => {
           const isOpen = open.includes(i);
+          const panelId = `${reactId}-panel-${i}`;
+          const btnId = `${reactId}-btn-${i}`;
           return (
             <motion.div
               key={f.title}
@@ -85,15 +158,18 @@ const FeatureAccordion = ({
               className="glass-card overflow-hidden"
             >
               <button
+                id={btnId}
                 onClick={() => toggle(i)}
                 aria-expanded={isOpen}
-                className="w-full flex items-center justify-between p-4 md:p-5 text-left hover:bg-primary/5 transition-colors"
+                aria-controls={panelId}
+                className="w-full flex items-center justify-between p-4 md:p-5 text-left hover:bg-primary/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
               >
                 <span className="font-semibold text-foreground text-sm md:text-base">{f.title}</span>
                 <motion.span
                   animate={{ rotate: isOpen ? 180 : 0 }}
                   transition={spring}
                   className="shrink-0"
+                  aria-hidden="true"
                 >
                   <ChevronDown className="w-4 h-4 text-primary" />
                 </motion.span>
@@ -102,6 +178,9 @@ const FeatureAccordion = ({
                 {isOpen && (
                   <motion.div
                     key="c"
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={btnId}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -122,20 +201,24 @@ const FeatureAccordion = ({
     );
   }
 
-  // inline variant – single collapsible "Key Features" block (used on project cards)
+  // inline variant – single collapsible block (used on project cards)
   const isOpen = open.includes(0);
+  const panelId = `${reactId}-inline-panel`;
+  const btnId = `${reactId}-inline-btn`;
   return (
     <motion.div layout={!reduced} className="border-t border-primary/10 pt-3">
       <button
+        id={btnId}
         onClick={() => toggle(0)}
         aria-expanded={isOpen}
-        className="w-full flex items-center justify-between text-left text-xs font-mono uppercase tracking-wider text-primary/90 hover:text-primary transition-colors"
+        aria-controls={panelId}
+        className="w-full flex items-center justify-between text-left text-xs font-mono uppercase tracking-wider text-primary/90 hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
       >
         <span className="flex items-center gap-1.5">
-          {showIcon && <Sparkles className="w-3.5 h-3.5" />}
+          {showIcon && <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />}
           {label}
         </span>
-        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={spring}>
+        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={spring} aria-hidden="true">
           <ChevronDown className="w-4 h-4" />
         </motion.span>
       </button>
@@ -143,6 +226,9 @@ const FeatureAccordion = ({
         {isOpen && (
           <motion.ul
             key="features"
+            id={panelId}
+            role="region"
+            aria-labelledby={btnId}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -161,7 +247,7 @@ const FeatureAccordion = ({
                   transition={{ delay: reduced ? 0 : 0.04 + idx * 0.04 }}
                   className="flex items-start gap-2"
                 >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
                   <span>{f.title}</span>
                 </motion.li>
               ))}
