@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -206,9 +206,17 @@ const ProjectDetail = () => {
                 <button
                   key={i}
                   onClick={() => setLightbox(s.url)}
-                  className="group relative rounded-lg overflow-hidden border border-border/40 hover:border-primary/50 transition-all"
+                  aria-label={`Open screenshot: ${s.caption}`}
+                  aria-haspopup="dialog"
+                  className="group relative rounded-lg overflow-hidden border border-border/40 hover:border-primary/50 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60"
                 >
-                  <img src={s.url} alt={s.caption} className="w-full h-44 object-cover" />
+                  <img
+                    src={s.url}
+                    alt={s.caption}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-44 object-cover"
+                  />
                   <div className="absolute inset-0 bg-background/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3 text-xs text-foreground">
                     {s.caption}
                   </div>
@@ -323,33 +331,81 @@ const ProjectDetail = () => {
       <ScrollToTop />
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
-            className="fixed inset-0 z-50 bg-background/90 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
-          >
-            <button
-              className="absolute top-6 right-6 text-foreground hover:text-primary"
-              onClick={() => setLightbox(null)}
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <motion.img
-              initial={{ scale: 0.9 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.9 }}
-              src={lightbox}
-              alt="Preview"
-              className="max-h-[90vh] max-w-[90vw] rounded-lg border border-primary/30"
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Lightbox src={lightbox} onClose={() => setLightbox(null)} />
     </div>
+  );
+};
+
+const Lightbox = ({ src, onClose }: { src: string | null; onClose: () => void }) => {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!src) return;
+    lastFocusRef.current = document.activeElement as HTMLElement | null;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    // Focus the close button on open
+    const t = window.setTimeout(() => closeRef.current?.focus(), 0);
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      } else if (e.key === "Tab") {
+        // Only the close button is focusable → trap focus
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+
+    return () => {
+      window.clearTimeout(t);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      lastFocusRef.current?.focus?.();
+    };
+  }, [src, onClose]);
+
+  return (
+    <AnimatePresence>
+      {src && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Screenshot preview"
+          className="fixed inset-0 z-50 bg-background/90 backdrop-blur-md flex items-center justify-center p-6 cursor-zoom-out"
+        >
+          <button
+            ref={closeRef}
+            aria-label="Close preview (Esc)"
+            className="absolute top-6 right-6 text-foreground hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded p-1"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}
+          >
+            <X className="w-6 h-6" aria-hidden="true" />
+          </button>
+          <motion.img
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
+            exit={{ scale: 0.9 }}
+            src={src}
+            alt="Screenshot preview"
+            loading="lazy"
+            decoding="async"
+            onClick={(e) => e.stopPropagation()}
+            className="max-h-[90vh] max-w-[90vw] rounded-lg border border-primary/30"
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
