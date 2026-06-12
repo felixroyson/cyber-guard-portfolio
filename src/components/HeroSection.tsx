@@ -82,7 +82,7 @@ const HeroSection = () => {
               {/* Center avatar with profile photo */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-36 h-36 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-primary/40 shadow-[0_0_30px_hsl(195_100%_50%/0.2)]">
-                  <img src={profileImg} alt="Felix Roysom A" className="w-full h-full object-cover" />
+                  <img src={profileImg} alt="Felix Royson A" className="w-full h-full object-cover" />
                 </div>
               </div>
 

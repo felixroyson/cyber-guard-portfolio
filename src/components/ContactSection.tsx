@@ -173,7 +173,7 @@ const ContactSection = () => {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-border/20 flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Shield className="w-4 h-4 text-primary" />
-          <span>© 2026 Felix Roysom A. Built with security in mind.</span>
+          <span>© 2026 Felix Royson A. Built with security in mind.</span>
         </div>
       </div>
     </section>
