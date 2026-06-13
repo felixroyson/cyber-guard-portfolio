@@ -39,9 +39,7 @@ const HeroSection = () => {
                 <TypingText text="Secure Systems Engineer" speed={55} delay={900} />
               </span>
             </h1>
-            <p className="text-muted-foreground leading-relaxed max-w-lg">
-              Computer Science Engineering student focused on cybersecurity, network security, and secure digital infrastructure. Interested in cyber defense and security monitoring systems.
-            </p>
+
             <div className="flex gap-4 pt-2">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Button size="lg" className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>
